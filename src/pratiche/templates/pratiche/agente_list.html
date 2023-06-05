@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<title>Lista degli agenti</title>
+{% endblock %}
+
+{% block content %}
+	<div class="panel panel-default">
+	  	<div class="panel-heading">Lista degli agenti
+	  		<button type="submit", class="btn btn-default">Aggiungi</button>	
+		</div>
+	</div>
+	<form action='.' method='POST'>
+		{% csrf_token %}
+	    <div class="container-fluid">
+	      <table class="table table-bordered">
+	        <thead>
+	          <tr>
+	          	<th scope="col">Nr.Caratteristico</th>
+	          	<th scope="col">Nome</th>
+	            <th scope="col">Cognome</th>
+	          </tr>
+	         </thead>
+	        <tbody>
+	          {% for ag in agente_list %}
+	          <tr>
+	          	<td><a href="{% url 'pratiche:pratiche-agente' id=ag.id %}">{{ ag.caratt }}</a></td>
+	            <td>{{ ag.nome }}</td>
+	            <td>{{ ag.cognome }}</td>
+	          </tr>
+	          {% endfor %}
+	         </tbody>
+	      </table>
+	    </div>
+	</form> 
+{% endblock %}	

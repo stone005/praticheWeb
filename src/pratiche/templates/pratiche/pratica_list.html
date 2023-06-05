@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<title>Pratiche</title>
+{% endblock %}
+
+{% block content %}
+<form action='.' method='POST'>
+	{% csrf_token %}
+	<div class="container-fluid">
+		<div class="well">
+			Agente:
+			<select name="cboAgent" class="btn btn-default dropdown-toggle">
+				<option disabled selected>Effettua una selezione</option>
+				<option value="all">Tutti i record</option>
+				<option disabled>------------------</option>	
+				{% for ag in agenti_list %}
+		    		<option value="{{ ag.id }}">{{ ag.cognome }}</option>
+				{% endfor %}
+			</select>
+			Tipologia:
+			<select name="cboTipo" class="btn btn-default dropdown-toggle">
+				<option disabled selected>Effettua una selezione</option>
+				<option disabled>------------------</option>	
+				{% for tipo in tipo_list %}
+		    		<option value="{{ tipo.0 }}">{{ tipo.1 }}</option>
+				{% endfor %}
+			</select>
+			<button type="submit", class="btn btn-default">OK</button>	
+		</div>
+<!-- 		onchange="form.submit()" Per fare il submit della combo subito dopo la scelta -->
+ 	</div>
+	<div class="container-fluid">
+		<table class="table table-bordered">
+		  <thead>
+		    <tr>
+				<th scope="col">Protocollo</th>
+		        <th scope="col">Anno</th>
+		        <th scope="col">Agente</th>
+		        <th scope="col">tipologia</th>
+		        <th scope="col">RGNR</th>
+		        <th scope="col">Magistrato</th>     
+		    </tr>
+		   </thead>
+		  <tbody>
+		    {% for obj in object_list %}
+		    <tr>
+		      <td><a href='{{ obj.get_absolute_url }}'>{{ obj.prot }}</a></td>
+		      <td>{{ obj.timestamp|date:'Y' }}</td>
+		      <td>{{ obj.agente }}</td>
+		      <td>{{ obj.get_tipologia_display }}</td>
+		      <td>{{ obj.rgnr }}</td>
+		      <td>{{ obj.magistrato }}</td>
+		    </tr>
+		    {% endfor %}
+		   </tbody>
+		</table>
+	</div>
+</form> 
+{% endblock %}

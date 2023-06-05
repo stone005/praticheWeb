@@ -1,0 +1,14 @@
+{% extends 'outmanage.html' %}
+{% block content %}
+	<div class="container-fluid">
+		<h2>Login</h2>
+		<form method="post">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<div>
+				<button type="submit" class="btn btn-default">Login</button>
+				<a href="{% url 'pratiche:signup' %}" class="btn btn-default" role="button">Registrati</a>
+			</div>
+		</form>
+	</div>
+{% endblock %}

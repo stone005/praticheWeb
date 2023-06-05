@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+       <div class="container-fluid">
+           <nav class="navbar navbar-default">
+                <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/pratiche">Gestione pratiche Polizia Locale Torino</a>
+                    </div>
+                </div>
+            </nav> 
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" role="tab" id="headingOne" style="background-color: #f5f5f5">
+                                <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="collapsed" style="color: #000">
+                                Menu <span class="glyphicon glyphicon-plus pull-right" aria-hidden="true"></span>
+                                </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
+                                <div class="panel-body">
+                                    <div class="list-group">
+                                        <a href="/pratiche/add" class="list-group-item"> <span class="glyphicon glyphicon-link" aria-hidden="true"></span> Nuova pratica </a>
+                                        <a role="button" class="list-group-item" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" class="collapsed"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                        Gestione tabelle 
+                                        </a>
+    {#                                     <a href="/pratiche/add/agente" class="list-group-item"> <span class="glyphicon glyphicon-link" aria-hidden="true"></span> Gestione tabelle </a> #}
+                                        <a href="#" class="list-group-item"> <span class="glyphicon glyphicon-link" aria-hidden="true"></span> Menu Item</a>
+                                        <a href="{% url 'logout' %}" class="list-group-item"> <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
+                                <div class="panel-body">
+                                    <div class="list-group">
+                                        <a href="{% url 'pratiche:agente-list' %}" class="list-group-item"></span> Agente </a>
+                                        <a href="{% url 'pratiche:magistrato-list' %}" class="list-group-item"></span> Magistrato </a>
+                                        <a href="{% url 'pratiche:indagato-list' %}" class="list-group-item"></span> Indagato </a>
+                                        <!-- <a href="/pratiche/list/indagato" class="list-group-item"></span> Indagato </a> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+                <div class="col-sm-8">
+                	{% block content %}
+                	{% endblock %}
+                </div>
+            </div>    
+        </div>
+    {% else %}
+        <div class="container-fluid">
+            <h2>Attenzione! Non sei logato!</h2>
+            <a href="{% url 'login' %}" class="btn btn-default" role="button">Login</a>
+        </div>
+    {% endif %}  
+</body>
+</html>

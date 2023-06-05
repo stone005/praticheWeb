@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="panel panel-default">
+		<div class="panel-heading">Dati specifici pratica</div>
+	</div>
+	<div class="panel panel-default">	
+		<div class="container-fluid">
+			<h5><b>ID: </b>{{ object.prot }}</h5>
+			<h5><b>Data: </b>{{ object.timestamp|date:'d/m/Y' }}</h5>
+			<h5><b>Tipologia: </b>{{ object.get_tipologia_display }}</h5>
+			<h5><b>Agente: </b>{{ object.agente }}</h5>
+			<h5><b>FNCR: </b>{{ object.fncr }}</h5>
+		</div>
+	</div>
+{% endblock %}

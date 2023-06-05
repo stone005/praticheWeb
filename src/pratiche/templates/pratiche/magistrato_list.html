@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<title>Lista dei magistrati</title>
+{% endblock %}
+
+{% block content %}
+	<div class="panel panel-default">
+		<div class="panel-heading">Lista dei Magistrati
+<!-- 		<button type="submit", class="btn btn-default">Aggiungi</button> -->
+		<a href="{% url 'pratiche:magistrato-add' %}" class="btn btn-default" role="button">Aggiungi</a>
+		</div>	
+	</div>
+	<form action='.' method='POST'>
+		{% csrf_token %}
+	    <div class="container-fluid">
+	      <table class="table table-bordered">
+	        <thead>
+	          <tr>
+	          	<th scope="col">Cognome</th>
+	          	<th scope="col">Nome</th>
+	            <th scope="col">Ufficio</th>
+	            <th scope="col">Telefono ufficio</th>
+	            <th scope="col">Cellulare</th>
+	          </tr>
+	         </thead>
+	        <tbody>
+	          {% for obj in object_list %}
+	          <tr>
+	          	<td><a href="{% url 'pratiche:pratiche-magistrato' id=obj.id %}">{{ obj.cognome }}</a></td>
+	            <td>{{ obj.nome }}</td>
+	            <td>{{ obj.ufficio }}</td>
+	            <td>{{ obj.tel_ufficio }}</td>
+	            <td>{{ obj.cellulare }}</td>
+	          </tr>
+	          {% endfor %}
+	         </tbody>
+	      </table>
+	    </div>
+	</form> 
+{% endblock %}	

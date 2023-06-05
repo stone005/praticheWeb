@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<title></title>
+{% endblock %}
+
+{% block content %}
+	<div class="panel panel-default">
+	  <div class="panel-heading">Pratiche</div>	
+	</div>
+	<form action='.' method='POST'>
+		{% csrf_token %}
+	    <div class="container-fluid">
+			<table class="table table-bordered">
+			  <thead>
+			    <tr>
+					<th scope="col">Protocollo</th>
+			        <th scope="col">Anno</th>
+			        <th scope="col">Agente</th>
+			        <th scope="col">tipologia</th>
+			        <th scope="col">RGNR</th>
+			        <th scope="col">Magistrato</th>     
+			    </tr>
+			   </thead>
+			  <tbody>
+			    {% for obj in object_list %}
+			    <tr>
+			      <td><a href='{{ obj.get_absolute_url }}'>{{ obj.prot }}</a></td>
+			      <td>{{ obj.timestamp|date:'Y' }}</td>
+			      <td>{{ obj.agente }}</td>
+			      <td>{{ obj.get_tipologia_display }}</td>
+			      <td>{{ obj.rgnr }}</td>
+			      <td>{{ obj.magistrato }}</td>
+			    </tr>
+			    {% endfor %}
+			   </tbody>
+			</table>
+		</div>
+	</form> 
+{% endblock %}	

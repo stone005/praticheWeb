@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<title>Lista degli indagati</title>
+{% endblock %}
+
+{% block content %}
+	<div class="panel panel-default">
+		<div class="panel-heading">Lista degli indagati
+<!-- 		<button type="submit", class="btn btn-default">Aggiungi</button> -->
+		<a href="{% url 'pratiche:indagato-add' %}" class="btn btn-default" role="button">Aggiungi</a>
+		</div>	
+	</div>
+	<form action='.' method='POST'>
+		{% csrf_token %}
+	    <div class="container-fluid">
+	      <table class="table table-bordered">
+	        <thead>
+	          <tr>
+	          <th scope="col">Cognome</th>
+	              <th scope="col">Nome</th>
+	              <th scope="col">Data di nascita</th>
+	          </tr>
+	         </thead>
+	        <tbody>
+	          {% for obj in object_list %}
+	          <tr>
+	          	<td><a href="{% url 'pratiche:pratiche-indagato' pk=obj.pk %}">{{ obj.cognome }}</a></td>
+	            <td>{{ obj.nome }}</td>
+	            <td>{{ obj.data_nascita|date:'d/m/Y' }}</td>
+	          </tr>
+	          {% endfor %}
+	         </tbody>
+	      </table>
+	    </div>
+	</form> 
+{% endblock %}	

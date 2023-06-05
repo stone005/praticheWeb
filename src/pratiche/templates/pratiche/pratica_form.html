@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class="panel panel-default">
+    <div class="panel-heading">Nuova pratica</div>
+  </div>
+  <form method="POST" id="praticaForm" data-prot-url="{% url 'pratiche:load_prot' %}" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <br/> 
+    <button class="btn btn-secondary" type="submit" id="btnSave">Save</button>
+  </form>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_tipologia").change(function () {
+      var url = $("#praticaForm").attr("data-prot-url");   // get the url of the `load_cities` view
+      var tipologiaId = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                          // initialize an AJAX request
+        url: url,         // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'tipologia': tipologiaId,     // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+         $("#id_prot").val(data);          // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+{% endblock %}
